@@ -5,7 +5,16 @@ plugins:
     description: "Enable automatic post when a solution is accepted"
 
   solution_automation_message:
-    type: text
-    default: "Thanks for the solution! This is an automated message."
+    default: |
+      Thanks 2 for the solution! This is an automated message.
+
+      [survey name="ces-survey" title="CES Survey"]
+
+      [radio question="Choose any one option:"]
+      - cat
+      - dog
+      [/radio]
+
+      [/survey]
     client: true
     description: "Message posted automatically when a solution is accepted"

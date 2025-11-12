@@ -1,0 +1,10 @@
+plugins:
+  solution_automation_enabled:
+    default: true
+    client: true
+    description: "Enable automatic post when a solution is accepted"
+
+  solution_automation_message:
+    default: "Thanks for the solution! This is an automated message."
+    client: true
+    description: "Message posted automatically when a solution is accepted"

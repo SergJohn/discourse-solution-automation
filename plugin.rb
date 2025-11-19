@@ -8,10 +8,11 @@ enabled_site_setting :solution_automation_enabled
 after_initialize do
   # Listen to accepted_solution event
   DiscourseEvent.on(:accepted_solution) do |post|
+    
     # Only run if enabled
-    next unless SiteSetting.solution_automation_enabled
-    if not SiteSetting.solution_automation_enabled
-      Rails.logger.info("Automation is disabled. To proceed please enalbe the Automation on:  SiteSetting.solution_automation_enabled}")
+    unless SiteSetting.solution_automation_enabled
+      Rails.logger.info("[solution_automation] Automation disabled, skipping. topic_id=#{post.topic_id}")
+      next
     end
 
     # Get message from site setting
@@ -23,9 +24,10 @@ after_initialize do
       user_id: Discourse.system_user.id,
       raw: message
     )
-    next if already_posted
+
     if already_posted
-      Rails.logger.info("Solution Survey already delivered for: ##{post.topic_id}")
+      Rails.logger.info("[solution_automation] Message already posted, skipping. topic_id=#{post.topic_id}")
+      next
     end
 
     # Create the post as system user

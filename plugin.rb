@@ -10,6 +10,9 @@ after_initialize do
   DiscourseEvent.on(:accepted_solution) do |post|
     # Only run if enabled
     next unless SiteSetting.solution_automation_enabled
+    if not SiteSetting.solution_automation_enabled
+      Rails.logger.info("Automation is disabled. TO proceed please enalbe the Automation on:  SiteSetting.solution_automation_enabled}")
+    end
 
     # Get message from site setting
     message = SiteSetting.solution_automation_message.presence || "Thanks for the solution!"
@@ -21,6 +24,9 @@ after_initialize do
       raw: message
     )
     next if already_posted
+    if already_posted
+      Rails.logger.info("Solution Survey already delivered for: ##{post.topic_id}")
+    end
 
     # Create the post as system user
     PostCreator.create!(

@@ -11,7 +11,7 @@ after_initialize do
     # Only run if enabled
     next unless SiteSetting.solution_automation_enabled
     if not SiteSetting.solution_automation_enabled
-      Rails.logger.info("Automation is disabled. TO proceed please enalbe the Automation on:  SiteSetting.solution_automation_enabled}")
+      Rails.logger.info("Automation is disabled. To proceed please enalbe the Automation on:  SiteSetting.solution_automation_enabled}")
     end
 
     # Get message from site setting
